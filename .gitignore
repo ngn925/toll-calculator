@@ -1,3 +1,6 @@
 # Ignore IntelliJ IDEA files
 .idea/
 toll-calculator.iml
+
+# Ignore class files
+out/
