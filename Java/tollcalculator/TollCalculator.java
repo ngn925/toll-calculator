@@ -1,3 +1,4 @@
+package tollcalculator;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -90,7 +91,7 @@ public class TollCalculator {
   }
 
   private enum TollFreeVehicles {
-    MOTORBIKE("Motorbike"),
+    MOTORBIKE("tollcalculator.Motorbike"),
     TRACTOR("Tractor"),
     EMERGENCY("Emergency"),
     DIPLOMAT("Diplomat"),

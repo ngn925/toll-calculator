@@ -1,3 +1,4 @@
+package tollcalculator;
 
 public interface Vehicle {
 
