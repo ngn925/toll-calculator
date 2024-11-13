@@ -1,19 +1,38 @@
 package tollcalculator;
 
-enum TollFreeVehicles {
-    MOTORBIKE("tollcalculator.Motorbike"),
-    TRACTOR("Tractor"),
-    EMERGENCY("Emergency"),
-    DIPLOMAT("Diplomat"),
-    FOREIGN("Foreign"),
-    MILITARY("Military");
-    private final String type;
+import java.util.Optional;
 
-    TollFreeVehicles(String type) {
+enum TollFreeVehicles {
+    CAR("Car", false),
+    MOTORBIKE("Motorbike", true),
+    TRACTOR("Tractor", true),
+    EMERGENCY("Emergency", true),
+    DIPLOMAT("Diplomat", true),
+    FOREIGN("Foreign", true),
+    MILITARY("Military", true);
+
+    private final String type;
+    private final boolean tollFree;
+
+    TollFreeVehicles(String type, boolean tollFree) {
         this.type = type;
+        this.tollFree = tollFree;
+    }
+
+    public static Optional<TollFreeVehicles> fromString(String type) {
+        for (TollFreeVehicles vehicle : TollFreeVehicles.values()) {
+            if (vehicle.getType().equalsIgnoreCase(type)) {
+                return Optional.of(vehicle);
+            }
+        }
+        return Optional.empty();
     }
 
     public String getType() {
         return type;
+    }
+
+    public boolean isTollFree() {
+        return tollFree;
     }
 }

@@ -35,15 +35,13 @@ public class TollCalculator {
     return totalFee;
   }
 
-  private boolean isTollFreeVehicle(Vehicle vehicle) {
-    if(vehicle == null) return false;
+  boolean isTollFreeVehicle(Vehicle vehicle) {
+    if (vehicle == null) return false;
     String vehicleType = vehicle.getType();
-    return vehicleType.equals(TollFreeVehicles.MOTORBIKE.getType()) ||
-           vehicleType.equals(TollFreeVehicles.TRACTOR.getType()) ||
-           vehicleType.equals(TollFreeVehicles.EMERGENCY.getType()) ||
-           vehicleType.equals(TollFreeVehicles.DIPLOMAT.getType()) ||
-           vehicleType.equals(TollFreeVehicles.FOREIGN.getType()) ||
-           vehicleType.equals(TollFreeVehicles.MILITARY.getType());
+
+    return TollFreeVehicles.fromString(vehicleType)
+            .map(TollFreeVehicles::isTollFree)
+            .orElse(false);
   }
 
   public int getTollFee(final Date date, Vehicle vehicle) {
