@@ -1,4 +1,4 @@
-package tollcalculator;
+package com.afry.tollcalculator;
 
 import java.util.Optional;
 
