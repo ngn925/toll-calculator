@@ -28,11 +28,11 @@ enum TollFreeVehicles {
         return Optional.empty();
     }
 
-    public String getType() {
+    String getType() {
         return type;
     }
 
-    public boolean isTollFree() {
+    boolean isTollFree() {
         return tollFree;
     }
 }
