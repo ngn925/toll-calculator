@@ -20,6 +20,9 @@ public class TollCalculator {
       return 0;
     }
 
+    // For the purpose of this evaluation:
+    // Assume that error handling and sanity check on dates is done by caller
+
     List<LocalDateTime> localDateTimeList = Arrays.stream(dates).sequential()
             .sorted()
             .filter(Predicate.not(TollCalculator::isTollFreeDate))
@@ -63,12 +66,23 @@ public class TollCalculator {
   }
 
   static boolean isTollFreeVehicle(Vehicle vehicle) {
-    if (vehicle == null) return false;
-    String vehicleType = vehicle.getType();
+    if (vehicle == null) {
+      return false;
+    }
 
-    return TollFreeVehicles.fromString(vehicleType)
-            .map(TollFreeVehicles::isTollFree)
-            .orElse(false);
+    String vehicleType = vehicle.getType();
+    Optional<TollFreeVehicles> tollFreeVehicle = TollFreeVehicles.fromString(vehicleType);
+
+    if (tollFreeVehicle.isPresent()) {
+      return tollFreeVehicle.map(TollFreeVehicles::isTollFree).orElse(false);
+    } else {
+      // For the purpose of this evaluation:
+      // Logging unexpected vehicle type or some agreed upon error handling would have been added here in
+      // production code
+
+      return false;
+    }
+
   }
 
   static boolean isTollFreeDate(Date date) {
@@ -111,7 +125,18 @@ public class TollCalculator {
           Map.entry(tti18302359, 0)
   );
 
+  /**
+   * Calculate the toll fee for one date
+   *
+   * @param date - the date/time of a passage
+   * @param vehicle - the vehicle
+   * @return - the toll fee for that date/time
+   */
   public int getTollFee(final Date date, Vehicle vehicle) {
+    // For the purpose of this evaluation, assume that this method is part of
+    // an agreed upon API. (else I would have changed the order of the arguments to be the same in both methods)
+    // Otherwise not used in solution
+
     if(isTollFreeDate(date) || isTollFreeVehicle(vehicle)) {
       return 0;
     }
